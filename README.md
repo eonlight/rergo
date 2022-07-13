@@ -4,7 +4,7 @@ RDC ergo keyboard design
 
 # V1
 
-![PCB Design](/images/rergo)
+![PCB Design](/images/rergo.png)
 
 [rergo-v1 design](/designs/v1/)
 
