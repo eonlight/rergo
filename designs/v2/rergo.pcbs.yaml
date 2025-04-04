@@ -1,0 +1,119 @@
+points:
+  key.padding: cy
+  zones:
+    main:
+      anchor.rotate: 14
+      key.spread: cx
+      rows:
+        bottom:
+        home:
+        top:
+      columns:
+        pinky:
+          rows.bottom.column_net: P4
+          rows.home.column_net: P21
+          rows.top.column_net: P20
+        ring:
+          key.splay: -8
+          key.stagger: cy * 0.66
+          key.spread: cx * 1.15
+          rows.bottom.column_net: P19
+          rows.home.column_net: P18
+          rows.top.column_net: P17
+        middle:
+          key.splay: -2
+          key.stagger: cy * 0.4
+          key.spread: cx * 1.2
+          rows.bottom.column_net: P16
+          rows.home.column_net: P15
+          rows.top.column_net: P14
+        index:
+          key.splay: -2
+          key.stagger: cy * -0.65
+          key.spread: cx * 1.2
+          rows.bottom.column_net: P13
+          rows.home.column_net: P12
+          rows.top.column_net: P11
+        far:
+          key.splay: -5
+          key.stagger: cy * -0.5
+          key.spread: cx * 1.2
+          rows.bottom.column_net: P10
+          rows.home.column_net: P9
+          rows.top.column_net: P8
+    thumb:
+      anchor:
+        ref: main_far_bottom
+        shift: [cx * -1.5 , cy * -1.35]
+        rotate: -4
+      rows.single:
+      columns:
+        extra:
+          key.rotate: 8
+          key.shift: [cx * -0.55, cy * -0.17]
+          rows.single.column_net: P5
+        inner:
+          key.rotate: 6
+          key.shift: [cx * -0.25, 0]
+          rows.single.column_net: P7
+        home:
+          key.rotate: -10
+          key.shift: [cx * 0.45, 0]
+          rows.single.column_net: P6
+
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [cx * 1.5, cy * 1.25]
+    - what: rectangle
+      where: main_middle_bottom
+      size: [cx * 4, cy * 2.5]
+    - what: rectangle
+      where: thumb_home_single
+      size: [cx * 4, cy * 2]
+    - what: rectangle
+      where: thumb_inner_single
+      size: [cx * 2.2, cy * 2.1]
+      adjust.shift: [0, cy * 0.38]
+  cutout:
+    - what: outline
+      name: raw
+      fillet: 2
+  keycap:
+    - where: true
+      what: rectangle
+      size: [1cx - 0.5, 1cy - 0.5]
+      bound: false
+
+pcbs:
+  rergo:
+    outlines:
+      main:
+        outline: cutout
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          from: "{{column_net}}"
+          to: GND
+          keycaps: true
+          reverse: true
+          hotswap: true
+      choc:
+        what: choc
+        where: true
+        adjust.rotate: 180
+        params:
+          from: "{{column_net}}"
+          to: GND
+          keycaps: true
+          reverse: true
+      nice_nano:
+        what: ceoloide/mcu_nice_nano
+        params.reversible: true
+        where:
+          ref: main_far_home
+          shift: [25, 17]
+          rotate: 0
