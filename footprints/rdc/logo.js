@@ -1,0 +1,487 @@
+module.exports = {
+    params: {
+        designator: 'LOGO',
+        side: 'F',
+        reversible: false,
+        scale: 1.0,
+    },
+
+    body: p => {
+        const scaled_point = (x, y, scale, mirrored) => {
+            let scaled_x = x * scale * (mirrored ? -1.0 : 1.0)
+            let scaled_y = y * scale
+            return `(xy ${scaled_x.toFixed(6)} ${scaled_y.toFixed(6)})`
+        }
+
+        const fp_poly = (side, scale, mirrored) => {
+            const s = scale
+            const m = mirrored
+            return `
+            (fp_poly
+                (pts
+                 ${scaled_point(0.642596, -5.377402, s, m)}
+                 ${scaled_point(1.095941, -5.302208, s, m)}
+                 ${scaled_point(1.217205, -5.273966, s, m)}
+                 ${scaled_point(1.3397, -5.243453, s, m)}
+                 ${scaled_point(1.450888, -5.215706, s, m)}
+                 ${scaled_point(1.529976, -5.195914, s, m)}
+                 ${scaled_point(1.539838, -5.193435, s, m)}
+                 ${scaled_point(1.706169, -5.14158, s, m)}
+                 ${scaled_point(1.907971, -5.062776, s, m)}
+                 ${scaled_point(2.132338, -4.963254, s, m)}
+                 ${scaled_point(2.366363, -4.84924, s, m)}
+                 ${scaled_point(2.59714, -4.726966, s, m)}
+                 ${scaled_point(2.811763, -4.602659, s, m)}
+                 ${scaled_point(2.960199, -4.507928, s, m)}
+                 ${scaled_point(3.172356, -4.353321, s, m)}
+                 ${scaled_point(3.3963, -4.169151, s, m)}
+                 ${scaled_point(3.620555, -3.966448, s, m)}
+                 ${scaled_point(3.833648, -3.756243, s, m)}
+                 ${scaled_point(4.024104, -3.549568, s, m)}
+                 ${scaled_point(4.180447, -3.357453, s, m)}
+                 ${scaled_point(4.232342, -3.284989, s, m)}
+                 ${scaled_point(4.354209, -3.104982, s, m)}
+                 ${scaled_point(4.447246, -2.9645, s, m)}
+                 ${scaled_point(4.516775, -2.855375, s, m)}
+                 ${scaled_point(4.56682, -2.771709, s, m)}
+                 ${scaled_point(4.620951, -2.672684, s, m)}
+                 ${scaled_point(4.682449, -2.553106, s, m)}
+                 ${scaled_point(4.745534, -2.425151, s, m)}
+                 ${scaled_point(4.804426, -2.300997, s, m)}
+                 ${scaled_point(4.853343, -2.192822, s, m)}
+                 ${scaled_point(4.886505, -2.112802, s, m)}
+                 ${scaled_point(4.898152, -2.073762, s, m)}
+                 ${scaled_point(4.914742, -2.017314, s, m)}
+                 ${scaled_point(4.921458, -2.007656, s, m)}
+                 ${scaled_point(4.941814, -1.966397, s, m)}
+                 ${scaled_point(4.971259, -1.887199, s, m)}
+                 ${scaled_point(4.998247, -1.803811, s, m)}
+                 ${scaled_point(5.030871, -1.697106, s, m)}
+                 ${scaled_point(5.059985, -1.602975, s, m)}
+                 ${scaled_point(5.075242, -1.554504, s, m)}
+                 ${scaled_point(5.160361, -1.218538, s, m)}
+                 ${scaled_point(5.21602, -0.834788, s, m)}
+                 ${scaled_point(5.241878, -0.406393, s, m)}
+                 ${scaled_point(5.240759, -0.029331, s, m)}
+                 ${scaled_point(5.231285, 0.23581, s, m)}
+                 ${scaled_point(5.218506, 0.454518, s, m)}
+                 ${scaled_point(5.201055, 0.638989, s, m)}
+                 ${scaled_point(5.177565, 0.801418, s, m)}
+                 ${scaled_point(5.146669, 0.954001, s, m)}
+                 ${scaled_point(5.117482, 1.070554, s, m)}
+                 ${scaled_point(5.086915, 1.184831, s, m)}
+                 ${scaled_point(5.058114, 1.292946, s, m)}
+                 ${scaled_point(5.043207, 1.349191, s, m)}
+                 ${scaled_point(5.010311, 1.462234, s, m)}
+                 ${scaled_point(4.974314, 1.568138, s, m)}
+                 ${scaled_point(4.941344, 1.650151, s, m)}
+                 ${scaled_point(4.918253, 1.69083, s, m)}
+                 ${scaled_point(4.89931, 1.7359, s, m)}
+                 ${scaled_point(4.898152, 1.75015, s, m)}
+                 ${scaled_point(4.883414, 1.80871, s, m)}
+                 ${scaled_point(4.842689, 1.907356, s, m)}
+                 ${scaled_point(4.781214, 2.036511, s, m)}
+                 ${scaled_point(4.704225, 2.186601, s, m)}
+                 ${scaled_point(4.616955, 2.348049, s, m)}
+                 ${scaled_point(4.524642, 2.511281, s, m)}
+                 ${scaled_point(4.43252, 2.666719, s, m)}
+                 ${scaled_point(4.345826, 2.804789, s, m)}
+                 ${scaled_point(4.269794, 2.915915, s, m)}
+                 ${scaled_point(4.237833, 2.957859, s, m)}
+                 ${scaled_point(3.917875, 3.33446, s, m)}
+                 ${scaled_point(3.601419, 3.661024, s, m)}
+                 ${scaled_point(3.279844, 3.944905, s, m)}
+                 ${scaled_point(2.944528, 4.193462, s, m)}
+                 ${scaled_point(2.586851, 4.41405, s, m)}
+                 ${scaled_point(2.434411, 4.496717, s, m)}
+                 ${scaled_point(2.330973, 4.553288, s, m)}
+                 ${scaled_point(2.24796, 4.60327, s, m)}
+                 ${scaled_point(2.19913, 4.638218, s, m)}
+                 ${scaled_point(2.192885, 4.644979, s, m)}
+                 ${scaled_point(2.178259, 4.694993, s, m)}
+                 ${scaled_point(2.171032, 4.773304, s, m)}
+                 ${scaled_point(2.170887, 4.783657, s, m)}
+                 ${scaled_point(2.142819, 4.939346, s, m)}
+                 ${scaled_point(2.062504, 5.074722, s, m)}
+                 ${scaled_point(1.933671, 5.187016, s, m)}
+                 ${scaled_point(1.760048, 5.27346, s, m)}
+                 ${scaled_point(1.545365, 5.331285, s, m)}
+                 ${scaled_point(1.407852, 5.350206, s, m)}
+                 ${scaled_point(1.286254, 5.363808, s, m)}
+                 ${scaled_point(1.144868, 5.382299, s, m)}
+                 ${scaled_point(1.055889, 5.395325, s, m)}
+                 ${scaled_point(0.882677, 5.41522, s, m)}
+                 ${scaled_point(0.719829, 5.421259, s, m)}
+                 ${scaled_point(0.586423, 5.41308, s, m)}
+                 ${scaled_point(0.542609, 5.405041, s, m)}
+                 ${scaled_point(0.481429, 5.378413, s, m)}
+                 ${scaled_point(0.404724, 5.330701, s, m)}
+                 ${scaled_point(0.388625, 5.31896, s, m)}
+                 ${scaled_point(0.326556, 5.263067, s, m)}
+                 ${scaled_point(0.29918, 5.203179, s, m)}
+                 ${scaled_point(0.294385, 5.133781, s, m)}
+                 ${scaled_point(1.437182, 5.133781, s, m)}
+                 ${scaled_point(1.463042, 5.160582, s, m)}
+                 ${scaled_point(1.527491, 5.178956, s, m)}
+                 ${scaled_point(1.610829, 5.187091, s, m)}
+                 ${scaled_point(1.693361, 5.183177, s, m)}
+                 ${scaled_point(1.755386, 5.165402, s, m)}
+                 ${scaled_point(1.758821, 5.163359, s, m)}
+                 ${scaled_point(1.778882, 5.140265, s, m)}
+                 ${scaled_point(1.750893, 5.11782, s, m)}
+                 ${scaled_point(1.720249, 5.105148, s, m)}
+                 ${scaled_point(1.625469, 5.08137, s, m)}
+                 ${scaled_point(1.535642, 5.07865, s, m)}
+                 ${scaled_point(1.467416, 5.095304, s, m)}
+                 ${scaled_point(1.437436, 5.129646, s, m)}
+                 ${scaled_point(1.437182, 5.133781, s, m)}
+                 ${scaled_point(0.294385, 5.133781, s, m)}
+                 ${scaled_point(0.293302, 5.11811, s, m)}
+                 ${scaled_point(0.296388, 5.054713, s, m)}
+                 ${scaled_point(0.310881, 5.001968, s, m)}
+                 ${scaled_point(0.344632, 4.946716, s, m)}
+                 ${scaled_point(0.405495, 4.875799, s, m)}
+                 ${scaled_point(0.491281, 4.786331, s, m)}
+                 ${scaled_point(0.59295, 4.685995, s, m)}
+                 ${scaled_point(0.694872, 4.591726, s, m)}
+                 ${scaled_point(0.780281, 4.518821, s, m)}
+                 ${scaled_point(0.806316, 4.498887, s, m)}
+                 ${scaled_point(0.843842, 4.470935, s, m)}
+                 ${scaled_point(1.17321, 4.470935, s, m)}
+                 ${scaled_point(1.191063, 4.492004, s, m)}
+                 ${scaled_point(1.235118, 4.477871, s, m)}
+                 ${scaled_point(1.291114, 4.435808, s, m)}
+                 ${scaled_point(1.333033, 4.389437, s, m)}
+                 ${scaled_point(1.389383, 4.303505, s, m)}
+                 ${scaled_point(1.408669, 4.247162, s, m)}
+                 ${scaled_point(1.392454, 4.226017, s, m)}
+                 ${scaled_point(1.342303, 4.245681, s, m)}
+                 ${scaled_point(1.301296, 4.275536, s, m)}
+                 ${scaled_point(1.24574, 4.333829, s, m)}
+                 ${scaled_point(1.197881, 4.404806, s, m)}
+                 ${scaled_point(1.173787, 4.463954, s, m)}
+                 ${scaled_point(1.17321, 4.470935, s, m)}
+                 ${scaled_point(0.843842, 4.470935, s, m)}
+                 ${scaled_point(0.890408, 4.43625, s, m)}
+                 ${scaled_point(0.996539, 4.35476, s, m)}
+                 ${scaled_point(1.097418, 4.275473, s, m)}
+                 ${scaled_point(1.239829, 4.177613, s, m)}
+                 ${scaled_point(1.382036, 4.107115, s, m)}
+                 ${scaled_point(1.430118, 4.090622, s, m)}
+                 ${scaled_point(1.528499, 4.06525, s, m)}
+                 ${scaled_point(1.600232, 4.059626, s, m)}
+                 ${scaled_point(1.673904, 4.073757, s, m)}
+                 ${scaled_point(1.727838, 4.090691, s, m)}
+                 ${scaled_point(1.83593, 4.1417, s, m)}
+                 ${scaled_point(1.938635, 4.213619, s, m)}
+                 ${scaled_point(1.965764, 4.238879, s, m)}
+                 ${scaled_point(2.031477, 4.298944, s, m)}
+                 ${scaled_point(2.086026, 4.335596, s, m)}
+                 ${scaled_point(2.103449, 4.340877, s, m)}
+                 ${scaled_point(2.150155, 4.326103, s, m)}
+                 ${scaled_point(2.223128, 4.288782, s, m)}
+                 ${scaled_point(2.258429, 4.267551, s, m)}
+                 ${scaled_point(2.330809, 4.224078, s, m)}
+                 ${scaled_point(2.381358, 4.197789, s, m)}
+                 ${scaled_point(2.392513, 4.194226, s, m)}
+                 ${scaled_point(2.428316, 4.176857, s, m)}
+                 ${scaled_point(2.499619, 4.12969, s, m)}
+                 ${scaled_point(2.596572, 4.060135, s, m)}
+                 ${scaled_point(2.709325, 3.975602, s, m)}
+                 ${scaled_point(2.828028, 3.883501, s, m)}
+                 ${scaled_point(2.942831, 3.791241, s, m)}
+                 ${scaled_point(3.043884, 3.706233, s, m)}
+                 ${scaled_point(3.060411, 3.691783, s, m)}
+                 ${scaled_point(3.183757, 3.577397, s, m)}
+                 ${scaled_point(3.317884, 3.444102, s, m)}
+                 ${scaled_point(3.43706, 3.317614, s, m)}
+                 ${scaled_point(3.455103, 3.297366, s, m)}
+                 ${scaled_point(3.545436, 3.191643, s, m)}
+                 ${scaled_point(3.63923, 3.076531, s, m)}
+                 ${scaled_point(3.728904, 2.962007, s, m)}
+                 ${scaled_point(3.806875, 2.858048, s, m)}
+                 ${scaled_point(3.865563, 2.774631, s, m)}
+                 ${scaled_point(3.897386, 2.721731, s, m)}
+                 ${scaled_point(3.900923, 2.710706, s, m)}
+                 ${scaled_point(3.916072, 2.676511, s, m)}
+                 ${scaled_point(3.952761, 2.618244, s, m)}
+                 ${scaled_point(3.955062, 2.61492, s, m)}
+                 ${scaled_point(4.027987, 2.496019, s, m)}
+                 ${scaled_point(4.111516, 2.337363, s, m)}
+                 ${scaled_point(4.198189, 2.155005, s, m)}
+                 ${scaled_point(4.280549, 1.964999, s, m)}
+                 ${scaled_point(4.351138, 1.783402, s, m)}
+                 ${scaled_point(4.379562, 1.701154, s, m)}
+                 ${scaled_point(4.424751, 1.556045, s, m)}
+                 ${scaled_point(4.465522, 1.407363, s, m)}
+                 ${scaled_point(4.50725, 1.234628, s, m)}
+                 ${scaled_point(4.537405, 1.099884, s, m)}
+                 ${scaled_point(4.559617, 0.958915, s, m)}
+                 ${scaled_point(4.576016, 0.774174, s, m)}
+                 ${scaled_point(4.586617, 0.558814, s, m)}
+                 ${scaled_point(4.591436, 0.325992, s, m)}
+                 ${scaled_point(4.590487, 0.08886, s, m)}
+                 ${scaled_point(4.583785, -0.139426, s, m)}
+                 ${scaled_point(4.571347, -0.345712, s, m)}
+                 ${scaled_point(4.553187, -0.516844, s, m)}
+                 ${scaled_point(4.535419, -0.615936, s, m)}
+                 ${scaled_point(4.458613, -0.92403, s, m)}
+                 ${scaled_point(4.380695, -1.190566, s, m)}
+                 ${scaled_point(4.295264, -1.432407, s, m)}
+                 ${scaled_point(4.195919, -1.666417, s, m)}
+                 ${scaled_point(4.076257, -1.90946, s, m)}
+                 ${scaled_point(3.96859, -2.109145, s, m)}
+                 ${scaled_point(3.825765, -2.335715, s, m)}
+                 ${scaled_point(3.642266, -2.578916, s, m)}
+                 ${scaled_point(3.428818, -2.827107, s, m)}
+                 ${scaled_point(3.196146, -3.068647, s, m)}
+                 ${scaled_point(2.954974, -3.291898, s, m)}
+                 ${scaled_point(2.716028, -3.485218, s, m)}
+                 ${scaled_point(2.669053, -3.519551, s, m)}
+                 ${scaled_point(2.553642, -3.597547, s, m)}
+                 ${scaled_point(2.415991, -3.683242, s, m)}
+                 ${scaled_point(2.266347, -3.771073, s, m)}
+                 ${scaled_point(2.114956, -3.855477, s, m)}
+                 ${scaled_point(1.972064, -3.930891, s, m)}
+                 ${scaled_point(1.847916, -3.991754, s, m)}
+                 ${scaled_point(1.752761, -4.032502, s, m)}
+                 ${scaled_point(1.696842, -4.047573, s, m)}
+                 ${scaled_point(1.696448, -4.047576, s, m)}
+                 ${scaled_point(1.639097, -4.064016, s, m)}
+                 ${scaled_point(1.626362, -4.073135, s, m)}
+                 ${scaled_point(1.58495, -4.094334, s, m)}
+                 ${scaled_point(1.50546, -4.123618, s, m)}
+                 ${scaled_point(1.422517, -4.149471, s, m)}
+                 ${scaled_point(1.315428, -4.181287, s, m)}
+                 ${scaled_point(1.220985, -4.210911, s, m)}
+                 ${scaled_point(1.172869, -4.227229, s, m)}
+                 ${scaled_point(1.033137, -4.265751, s, m)}
+                 ${scaled_point(0.846873, -4.298565, s, m)}
+                 ${scaled_point(0.625972, -4.325161, s, m)}
+                 ${scaled_point(0.382333, -4.345028, s, m)}
+                 ${scaled_point(0.127851, -4.357659, s, m)}
+                 ${scaled_point(-0.125576, -4.362543, s, m)}
+                 ${scaled_point(-0.366052, -4.359171, s, m)}
+                 ${scaled_point(-0.581679, -4.347033, s, m)}
+                 ${scaled_point(-0.760561, -4.32562, s, m)}
+                 ${scaled_point(-0.82588, -4.312827, s, m)}
+                 ${scaled_point(-0.984329, -4.276215, s, m)}
+                 ${scaled_point(-1.102326, -4.248335, s, m)}
+                 ${scaled_point(-1.196655, -4.225065, s, m)}
+                 ${scaled_point(-1.2841, -4.202282, s, m)}
+                 ${scaled_point(-1.363857, -4.180683, s, m)}
+                 ${scaled_point(-1.474125, -4.147359, s, m)}
+                 ${scaled_point(-1.574101, -4.111883, s, m)}
+                 ${scaled_point(-1.625003, -4.090046, s, m)}
+                 ${scaled_point(-1.692648, -4.060393, s, m)}
+                 ${scaled_point(-1.738079, -4.047588, s, m)}
+                 ${scaled_point(-1.738796, -4.047576, s, m)}
+                 ${scaled_point(-1.775126, -4.035087, s, m)}
+                 ${scaled_point(-1.851917, -4.001201, s, m)}
+                 ${scaled_point(-1.957434, -3.951289, s, m)}
+                 ${scaled_point(-2.064256, -3.898616, s, m)}
+                 ${scaled_point(-2.52285, -3.636956, s, m)}
+                 ${scaled_point(-2.942195, -3.332274, s, m)}
+                 ${scaled_point(-3.321029, -2.98569, s, m)}
+                 ${scaled_point(-3.658091, -2.598326, s, m)}
+                 ${scaled_point(-3.879147, -2.287209, s, m)}
+                 ${scaled_point(-4.058582, -1.989196, s, m)}
+                 ${scaled_point(-4.215378, -1.684708, s, m)}
+                 ${scaled_point(-4.342276, -1.389037, s, m)}
+                 ${scaled_point(-4.428809, -1.129215, s, m)}
+                 ${scaled_point(-4.450304, -1.052496, s, m)}
+                 ${scaled_point(-4.480381, -0.946437, s, m)}
+                 ${scaled_point(-4.503579, -0.865243, s, m)}
+                 ${scaled_point(-4.571791, -0.564969, s, m)}
+                 ${scaled_point(-4.618402, -0.225183, s, m)}
+                 ${scaled_point(-4.643369, 0.139074, s, m)}
+                 ${scaled_point(-4.646649, 0.51276, s, m)}
+                 ${scaled_point(-4.628202, 0.880833, s, m)}
+                 ${scaled_point(-4.587985, 1.22825, s, m)}
+                 ${scaled_point(-4.525956, 1.53997, s, m)}
+                 ${scaled_point(-4.510431, 1.598498, s, m)}
+                 ${scaled_point(-4.478251, 1.714744, s, m)}
+                 ${scaled_point(-4.449295, 1.820595, s, m)}
+                 ${scaled_point(-4.430186, 1.891801, s, m)}
+                 ${scaled_point(-4.400694, 1.986827, s, m)}
+                 ${scaled_point(-4.370354, 2.067782, s, m)}
+                 ${scaled_point(-4.337006, 2.149755, s, m)}
+                 ${scaled_point(-4.311995, 2.214434, s, m)}
+                 ${scaled_point(-4.276532, 2.299411, s, m)}
+                 ${scaled_point(-4.22306, 2.414358, s, m)}
+                 ${scaled_point(-4.159324, 2.54401, s, m)}
+                 ${scaled_point(-4.093067, 2.673105, s, m)}
+                 ${scaled_point(-4.032035, 2.786379, s, m)}
+                 ${scaled_point(-3.983973, 2.868568, s, m)}
+                 ${scaled_point(-3.968304, 2.891798, s, m)}
+                 ${scaled_point(-3.924836, 2.955443, s, m)}
+                 ${scaled_point(-3.901957, 2.998881, s, m)}
+                 ${scaled_point(-3.900924, 3.004014, s, m)}
+                 ${scaled_point(-3.883077, 3.039148, s, m)}
+                 ${scaled_point(-3.834604, 3.108994, s, m)}
+                 ${scaled_point(-3.76311, 3.203773, s, m)}
+                 ${scaled_point(-3.676199, 3.313705, s, m)}
+                 ${scaled_point(-3.581477, 3.429012, s, m)}
+                 ${scaled_point(-3.486547, 3.539914, s, m)}
+                 ${scaled_point(-3.466881, 3.562197, s, m)}
+                 ${scaled_point(-3.338147, 3.698629, s, m)}
+                 ${scaled_point(-3.189795, 3.841948, s, m)}
+                 ${scaled_point(-3.030968, 3.984625, s, m)}
+                 ${scaled_point(-2.870809, 4.11913, s, m)}
+                 ${scaled_point(-2.718462, 4.237934, s, m)}
+                 ${scaled_point(-2.583067, 4.333508, s, m)}
+                 ${scaled_point(-2.473769, 4.398323, s, m)}
+                 ${scaled_point(-2.427079, 4.418475, s, m)}
+                 ${scaled_point(-2.383777, 4.445056, s, m)}
+                 ${scaled_point(-2.375751, 4.461619, s, m)}
+                 ${scaled_point(-2.352207, 4.485151, s, m)}
+                 ${scaled_point(-2.335347, 4.487528, s, m)}
+                 ${scaled_point(-2.283945, 4.508221, s, m)}
+                 ${scaled_point(-2.25843, 4.531524, s, m)}
+                 ${scaled_point(-2.200008, 4.569195, s, m)}
+                 ${scaled_point(-2.165927, 4.575519, s, m)}
+                 ${scaled_point(-2.111076, 4.595775, s, m)}
+                 ${scaled_point(-2.093055, 4.619515, s, m)}
+                 ${scaled_point(-2.052966, 4.656994, s, m)}
+                 ${scaled_point(-2.022381, 4.66351, s, m)}
+                 ${scaled_point(-1.967546, 4.677727, s, m)}
+                 ${scaled_point(-1.950462, 4.69284, s, m)}
+                 ${scaled_point(-1.957175, 4.714814, s, m)}
+                 ${scaled_point(-2.000661, 4.721322, s, m)}
+                 ${scaled_point(-2.061032, 4.712089, s, m)}
+                 ${scaled_point(-2.104844, 4.694981, s, m)}
+                 ${scaled_point(-2.171695, 4.66254, s, m)}
+                 ${scaled_point(-2.19977, 4.650663, s, m)}
+                 ${scaled_point(-2.253891, 4.623608, s, m)}
+                 ${scaled_point(-2.326019, 4.580981, s, m)}
+                 ${scaled_point(-2.331756, 4.57734, s, m)}
+                 ${scaled_point(-2.404559, 4.538484, s, m)}
+                 ${scaled_point(-2.463702, 4.519315, s, m)}
+                 ${scaled_point(-2.467483, 4.519002, s, m)}
+                 ${scaled_point(-2.526674, 4.495978, s, m)}
+                 ${scaled_point(-2.54949, 4.475565, s, m)}
+                 ${scaled_point(-2.598465, 4.434421, s, m)}
+                 ${scaled_point(-2.671359, 4.39004, s, m)}
+                 ${scaled_point(-2.677735, 4.386763, s, m)}
+                 ${scaled_point(-2.828901, 4.299914, s, m)}
+                 ${scaled_point(-3.008042, 4.179905, s, m)}
+                 ${scaled_point(-3.20251, 4.035896, s, m)}
+                 ${scaled_point(-3.399655, 3.877044, s, m)}
+                 ${scaled_point(-3.495685, 3.794558, s, m)}
+                 ${scaled_point(-3.755228, 3.545159, s, m)}
+                 ${scaled_point(-4.014287, 3.257006, s, m)}
+                 ${scaled_point(-4.258091, 2.948236, s, m)}
+                 ${scaled_point(-4.471871, 2.636991, s, m)}
+                 ${scaled_point(-4.567283, 2.478406, s, m)}
+                 ${scaled_point(-4.622708, 2.37653, s, m)}
+                 ${scaled_point(-4.68497, 2.255067, s, m)}
+                 ${scaled_point(-4.748333, 2.126137, s, m)}
+                 ${scaled_point(-4.807058, 2.001857, s, m)}
+                 ${scaled_point(-4.855409, 1.894345, s, m)}
+                 ${scaled_point(-4.88765, 1.815721, s, m)}
+                 ${scaled_point(-4.898153, 1.77948, s, m)}
+                 ${scaled_point(-4.912572, 1.72804, s, m)}
+                 ${scaled_point(-4.919653, 1.718761, s, m)}
+                 ${scaled_point(-4.94839, 1.667554, s, m)}
+                 ${scaled_point(-4.98483, 1.568662, s, m)}
+                 ${scaled_point(-5.026354, 1.432141, s, m)}
+                 ${scaled_point(-5.070339, 1.268052, s, m)}
+                 ${scaled_point(-5.114165, 1.086453, s, m)}
+                 ${scaled_point(-5.155211, 0.897403, s, m)}
+                 ${scaled_point(-5.190855, 0.71096, s, m)}
+                 ${scaled_point(-5.206367, 0.61849, s, m)}
+                 ${scaled_point(-5.223879, 0.470598, s, m)}
+                 ${scaled_point(-5.236971, 0.28476, s, m)}
+                 ${scaled_point(-5.245512, 0.075208, s, m)}
+                 ${scaled_point(-5.249372, -0.14383, s, m)}
+                 ${scaled_point(-5.248419, -0.358123, s, m)}
+                 ${scaled_point(-5.242522, -0.553443, s, m)}
+                 ${scaled_point(-5.231549, -0.71556, s, m)}
+                 ${scaled_point(-5.219522, -0.809023, s, m)}
+                 ${scaled_point(-5.179601, -1.018533, s, m)}
+                 ${scaled_point(-5.132731, -1.237081, s, m)}
+                 ${scaled_point(-5.08206, -1.452079, s, m)}
+                 ${scaled_point(-5.030734, -1.650941, s, m)}
+                 ${scaled_point(-4.981901, -1.821081, s, m)}
+                 ${scaled_point(-4.938706, -1.949912, s, m)}
+                 ${scaled_point(-4.926826, -1.979793, s, m)}
+                 ${scaled_point(-4.899946, -2.044199, s, m)}
+                 ${scaled_point(-4.863745, -2.131603, s, m)}
+                 ${scaled_point(-4.853774, -2.155774, s, m)}
+                 ${scaled_point(-4.804946, -2.266305, s, m)}
+                 ${scaled_point(-4.740473, -2.401242, s, m)}
+                 ${scaled_point(-4.667437, -2.546926, s, m)}
+                 ${scaled_point(-4.592924, -2.689696, s, m)}
+                 ${scaled_point(-4.524017, -2.815894, s, m)}
+                 ${scaled_point(-4.4678, -2.911858, s, m)}
+                 ${scaled_point(-4.440292, -2.953067, s, m)}
+                 ${scaled_point(-4.395783, -3.016526, s, m)}
+                 ${scaled_point(-4.371641, -3.059051, s, m)}
+                 ${scaled_point(-4.370208, -3.064616, s, m)}
+                 ${scaled_point(-4.351147, -3.107903, s, m)}
+                 ${scaled_point(-4.298508, -3.185499, s, m)}
+                 ${scaled_point(-4.219105, -3.289176, s, m)}
+                 ${scaled_point(-4.119753, -3.410706, s, m)}
+                 ${scaled_point(-4.007267, -3.54186, s, m)}
+                 ${scaled_point(-3.888463, -3.674411, s, m)}
+                 ${scaled_point(-3.770155, -3.800129, s, m)}
+                 ${scaled_point(-3.712733, -3.858437, s, m)}
+                 ${scaled_point(-3.51186, -4.053362, s, m)}
+                 ${scaled_point(-3.331346, -4.215225, s, m)}
+                 ${scaled_point(-3.155151, -4.356966, s, m)}
+                 ${scaled_point(-2.967233, -4.491524, s, m)}
+                 ${scaled_point(-2.762454, -4.624983, s, m)}
+                 ${scaled_point(-2.639244, -4.699057, s, m)}
+                 ${scaled_point(-2.499339, -4.77755, s, m)}
+                 ${scaled_point(-2.353664, -4.85498, s, m)}
+                 ${scaled_point(-2.213144, -4.925861, s, m)}
+                 ${scaled_point(-2.088705, -4.984709, s, m)}
+                 ${scaled_point(-1.99127, -5.02604, s, m)}
+                 ${scaled_point(-1.931767, -5.04437, s, m)}
+                 ${scaled_point(-1.926133, -5.044804, s, m)}
+                 ${scaled_point(-1.875782, -5.058196, s, m)}
+                 ${scaled_point(-1.866812, -5.064905, s, m)}
+                 ${scaled_point(-1.822283, -5.090604, s, m)}
+                 ${scaled_point(-1.739777, -5.124465, s, m)}
+                 ${scaled_point(-1.638003, -5.159557, s, m)}
+                 ${scaled_point(-1.535668, -5.188943, s, m)}
+                 ${scaled_point(-1.525174, -5.191532, s, m)}
+                 ${scaled_point(-1.44539, -5.211262, s, m)}
+                 ${scaled_point(-1.332424, -5.239736, s, m)}
+                 ${scaled_point(-1.209882, -5.271, s, m)}
+                 ${scaled_point(-1.202541, -5.272886, s, m)}
+                 ${scaled_point(-0.766895, -5.359795, s, m)}
+                 ${scaled_point(-0.304023, -5.406189, s, m)}
+                 ${scaled_point(0.170875, -5.41206, s, m)}
+                )
+                (stroke (width 0.01) (type solid))
+                (fill solid)
+                (layer "${side}.SilkS")
+            )
+             `
+        }
+
+        let result = `
+        (footprint "rergo logo"
+            (layer "${p.side}.Cu")
+            ${p.at}
+            (property "Reference" "${p.ref}"
+                (at 0 0 ${p.r})
+                (layer "${p.side}.Fab")
+                ${p.ref_hide}
+                (effects (font (size 1 1) (thickness 0.15)))
+            )
+            (attr exclude_from_pos_files exclude_from_bom)
+        `
+
+        if (p.reversible) {
+            result += fp_poly('F', p.scale, false)
+            result += fp_poly('B', p.scale, true)
+        } else {
+            result += fp_poly(p.side, p.scale, p.side == 'B')
+        }
+
+        return `${result})
+        `
+    }
+}

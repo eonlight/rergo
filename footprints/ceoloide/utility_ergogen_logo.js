@@ -43,11 +43,12 @@ module.exports = {
       let scaled_y = y * scale
       return `(xy ${scaled_x.toFixed(6)} ${scaled_y.toFixed(6)})`
     }
+
     const fp_poly = (side, layer, scale, mirrored) => {
       const s = scale
       const m = mirrored
       return `
-    (fp_poly 
+    (fp_poly
       (pts
           ${scaled_point(2.501231, 0, s, m)} ${scaled_point(2.501231, 2.501231, s, m)} ${scaled_point(0, 2.501231, s, m)} ${scaled_point(-2.50123, 2.501231, s, m)} ${scaled_point(-2.50123, 1.013088, s, m)}
           ${scaled_point(-1.738355, 1.013088, s, m)} ${scaled_point(-0.021885, 1.009917, s, m)} ${scaled_point(1.694584, 1.006746, s, m)} ${scaled_point(1.697905, 0.662827, s, m)} ${scaled_point(1.701225, 0.318907, s, m)}
@@ -62,11 +63,11 @@ module.exports = {
           ${scaled_point(-0.018759, -1.063023, s, m)} ${scaled_point(-1.738355, -1.063023, s, m)} ${scaled_point(-2.50123, -1.063023, s, m)} ${scaled_point(-2.50123, -2.50123, s, m)} ${scaled_point(0, -2.50123, s, m)}
           ${scaled_point(2.501231, -2.50123, s, m)}
       )
-			(stroke
-				(width 0.01)
-				(type solid)
-			)
-			(fill solid)
+      (stroke
+        (width 0.01)
+        (type solid)
+      )
+      (fill solid)
       (layer "${side}.${layer}")
     )
       `
@@ -81,7 +82,7 @@ module.exports = {
       ${p.ref_hide}
       (effects (font (size 1 1) (thickness 0.15)))
     )
-		(attr exclude_from_pos_files exclude_from_bom)
+    (attr exclude_from_pos_files exclude_from_bom)
     `
     const common_bottom = `
   )
