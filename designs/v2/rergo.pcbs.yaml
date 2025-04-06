@@ -50,32 +50,35 @@ points:
       columns:
         extra:
           key.rotate: 8
-          key.shift: [cx * -0.55, cy * -0.17]
+          key.shift: [cx * -0.5, cy * -0.15]
           rows.single.column_net: P5
         inner:
           key.rotate: 6
-          key.shift: [cx * -0.25, 0]
+          key.shift: [cx * 0, 0]
           rows.single.column_net: P7
         home:
           key.rotate: -10
-          key.shift: [cx * 0.45, 0]
+          key.shift: [cx * 0.6, 0]
           rows.single.column_net: P6
 
 outlines:
   raw:
-    - what: rectangle
+    - what: rectangle # main key outlines
       where: true
-      size: [cx * 1.5, cy * 1.25]
-    - what: rectangle
+      size: [cx * 1.5, cy * 1.5]
+    - what: rectangle # combine thumb keys
+      where: thumb_extra_single
+      size: [cx * 4, cy * 1.75]
+      adjust.shift: [cx * 1.25, 0]
+    - what: rectangle # close down gaps main/thumb
       where: main_middle_bottom
-      size: [cx * 4, cy * 2.5]
-    - what: rectangle
-      where: thumb_home_single
-      size: [cx * 4, cy * 2]
-    - what: rectangle
-      where: thumb_inner_single
-      size: [cx * 2.2, cy * 2.1]
-      adjust.shift: [0, cy * 0.38]
+      size: [cx * 4, cy * 3.9]
+    - what: rectangle # add space for nicenano
+      where: main_far_home
+      size: [cx * 3.5, cy * 3]
+    - what: rectangle # close space nicenano/thumb
+      where: main_far_bottom
+      size: [cx * 3.5, cy * 2]
   cutout:
     - what: outline
       name: raw
@@ -83,14 +86,16 @@ outlines:
   keycap:
     - where: true
       what: rectangle
-      size: [1cx - 0.5, 1cy - 0.5]
+      size: [cx - 0.5, cy - 0.5]
       bound: false
 
 pcbs:
   rergo:
     outlines:
-      main:
-        outline: cutout
+      main.outline: cutout
+      keycaps:
+        outline: keycap
+        layer: Eco1.User
     footprints:
       choc_hotswap:
         what: choc
@@ -115,5 +120,33 @@ pcbs:
         params.reversible: true
         where:
           ref: main_far_home
-          shift: [25, 17]
+          shift: [20, 5]
           rotate: 0
+      power:
+        what: ceoloide/power_switch_smd_side
+        params:
+          reversible: true
+          from: pos
+          to: RAW
+        where:
+          ref: main_ring_bottom
+          rotate: -90
+          shift: [0, -22.5]
+      b3u1000p:
+        what: b3u1000p
+        params:
+          reverse: true
+          r1: RST
+          r2: GND
+        where:
+          ref: main_far_bottom
+          shift: [25, 0]
+      jstph:
+        what: ceoloide/battery_connector_jst_ph_2
+        where:
+          ref: main_far_bottom
+          shift: [27.5, -7.5]
+          rotate: -90
+        params:
+            reversible: true
+            BAT_P: pos
