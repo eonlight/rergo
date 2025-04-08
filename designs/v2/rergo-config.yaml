@@ -3,6 +3,9 @@
 # P15 P04 P07 P09 P01
 #         P14 P16 P10
 
+unit:
+  screwSize: 1.5
+
 points:
   key.padding: cy
   zones:
@@ -87,6 +90,32 @@ outlines:
     - what: outline
       name: raw
       fillet: 2
+  mounting:
+    - what: circle
+      radius: 1.5
+      where:
+        ref: main_pinky_top
+        shift: [12.5, 5]
+    - what: circle
+      radius: 1.5
+      where:
+        ref: main_ring_bottom
+        shift: [0, -12.5]
+    - what: circle
+      radius: 1.5
+      where:
+        ref: main_index_home
+        shift: [12.5, 5]
+    - what: circle
+      radius: 1.5
+      where:
+        ref: main_index_bottom
+        shift: [0, -17.5]
+    - what: circle
+      radius: 1.5
+      where:
+        ref: main_far_bottom
+        shift: [12.5, -12.5]
   keycap:
     - where: true
       what: rectangle
@@ -98,6 +127,8 @@ outlines:
 cases:
   plate:
     - name: cutout
+    - name: mounting
+      operation: subtract
 
 pcbs:
   rergo:
