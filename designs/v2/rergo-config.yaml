@@ -3,8 +3,11 @@
 # P15 P04 P07 P09 P01
 #         P14 P16 P10
 
-unit:
-  screwSize: 1.5
+units:
+  SS: 1.5 # screw size
+  FR: 3.15 # feet radius: should be 3.2 but using 3.1 for tight fit
+  PH: 1.5 # plate height: 1.5mm
+  FI: 0.5 # feet indentation: 0.5mm
 
 points:
   key.padding: cy
@@ -92,30 +95,61 @@ outlines:
       fillet: 2
   mounting:
     - what: circle
-      radius: 1.5
+      radius: SS
       where:
         ref: main_pinky_top
         shift: [12.5, 5]
     - what: circle
-      radius: 1.5
+      radius: SS
       where:
         ref: main_ring_bottom
         shift: [0, -12.5]
     - what: circle
-      radius: 1.5
+      radius: SS
       where:
         ref: main_index_home
         shift: [12.5, 5]
     - what: circle
-      radius: 1.5
+      radius: SS
       where:
         ref: main_index_bottom
         shift: [0, -17.5]
     - what: circle
-      radius: 1.5
+      radius: SS
       where:
         ref: main_far_bottom
         shift: [12.5, -12.5]
+  feet:
+    - what: circle
+      radius: FR
+      where:
+        ref: main_pinky_top
+        shift: [-8, 11]
+    - what: circle
+      radius: FR
+      where:
+        ref: main_pinky_bottom
+        shift: [-8, -4]
+    - what: circle
+      radius: FR
+      where:
+        ref: main_index_top
+        shift: [4, 8.5]
+    - what: circle
+      radius: FR
+      where:
+        ref: main_far_top
+        shift: [30.5, 7.5]
+    - what: circle
+      radius: FR
+      where:
+        ref: thumb_extra_single
+        shift: [-6.5, -5]
+    - what: circle
+      radius: FR
+      where:
+        ref: thumb_home_single
+        shift: [11, -4.5]
   keycap:
     - where: true
       what: rectangle
@@ -124,11 +158,17 @@ outlines:
 
 # mounting holes https://flatfootfox.com/ergogen-part4-footprints-cases/
 # npx @jscad/cli@1 output/cases/plate.jscad -of stla -o output/cases/plate.stl
+# for recessed feet on other half, use bambu labs mirror
 cases:
-  plate:
+  bottom:
     - name: cutout
+      extrude: PH
     - name: mounting
       operation: subtract
+      extrude: PH
+    - name: feet
+      operation: subtract
+      extrude: FI
 
 pcbs:
   rergo:
