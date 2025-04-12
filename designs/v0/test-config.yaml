@@ -1,0 +1,47 @@
+units:
+  SS: 1.5 # screw size
+  FR: 3.15 # feet radius: should be 3.2 but using 3.1 for tight fit
+  PH: 1.5 # plate height: 1.5mm
+  FI: 0.5 # feet indentation: 0.5mm
+
+points:
+  key.padding: cy
+  zones:
+    main:
+      anchor.shift: [100, -100]  # Fix placement on KiCAD sheet
+      rows.single:
+      columns.index.rows.single.bind: 1.5
+
+outlines:
+  raw:
+    - what: rectangle # main key outlines
+      where: true
+      size: [12.5, 12.5]
+      bound: true
+  cutout:
+    - what: outline
+      name: raw
+      fillet: 2
+  mounting:
+    - what: circle
+      radius: SS
+      where:
+        ref: main_index_single
+        shift: [2.5, 2.5]
+  feet:
+    - what: circle
+      radius: FR
+      where:
+        ref: main_index_single
+        shift: [-2.5, -2.5]
+
+cases:
+  bottom:
+    - name: cutout
+      extrude: PH
+    - name: mounting
+      operation: subtract
+      extrude: PH
+    - name: feet
+      operation: subtract
+      extrude: FI
