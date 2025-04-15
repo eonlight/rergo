@@ -1,6 +1,6 @@
 units:
   SS: 1.5 # screw size
-  FR: 3.15 # feet radius: should be 3.2 but using 3.1 for tight fit
+  FR: 3.2 # feet radius: 3.2mm
   PH: 1.5 # plate height: 1.5mm
   FI: 0.5 # feet indentation: 0.5mm
 

@@ -1,3 +1,8 @@
+# P15 P10 P07 P02 P01
+# P18 P16 P08 P03 P04
+# P19 P14 P09 P05 P06
+#             P20 P21
+
 points:
    key:
       padding: cy
@@ -108,7 +113,7 @@ points:
         thumb:
 outlines:
   exports:
-    raw: 
+    raw:
       - type: keys
         side: both
         size: [1cx - 0.5 , 1cy - 0.5]
@@ -149,13 +154,13 @@ pcbs:
       b3u1000p:
         type: b3u1000p
         nets:
-          r1: RST  
+          r1: RST
           r2: GND
         anchor:
           ref: main_inner_bottom
           shift: [29, 40]
         params:
-          reverse: true 
+          reverse: true
       pcm12:
         type: pcm12
         anchor:
@@ -163,42 +168,42 @@ pcbs:
           shift: [30, -7]
           rotate: 90
         nets:
-          from: pos  
+          from: pos
           to: RAW
         params:
-          reverse: true 
+          reverse: true
       bat:
         type: bat
-        nets: 
+        nets:
           neg: GND
         anchor:
           ref: main_inner_bottom
           shift: [27.5, 3]
       via2:
         type: via
-        anchor: 
+        anchor:
           ref: main_inner_top
           shift: [15,6]
-        nets: 
+        nets:
           net: GND
       via3:
         type: via
-        anchor: 
+        anchor:
           ref: thumbfan_home_thumb
           shift: [-2,23.5]
-        nets: 
+        nets:
           net: RAW
       via5:
         type: via
-        anchor: 
+        anchor:
           ref: main_inner_bottom
           shift: [30,-13]
-        nets: 
+        nets:
           net: pos
       via6:
         type: via
         anchor:
           ref: main_inner_bottom
           shift: [30.5,33.5]
-        nets: 
+        nets:
           net: RST

@@ -11,7 +11,7 @@ function mounting_extrude_1_5_outline_fn(){
 
 
 function feet_extrude_0_5_outline_fn(){
-    return CAG.circle({"center":[97.5,-102.5],"radius":3.15})
+    return CAG.circle({"center":[97.5,-102.5],"radius":3.2})
 .extrude({ offset: [0, 0, 0.5] });
 }
 

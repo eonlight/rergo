@@ -19,17 +19,17 @@ function mounting_extrude_1_5_outline_fn(){
 
 
 function feet_extrude_0_5_outline_fn(){
-    return CAG.circle({"center":[211.8191416,-127.314432],"radius":3.15})
+    return CAG.circle({"center":[211.8191416,-127.314432],"radius":3.2})
 .union(
-    CAG.circle({"center":[138.5237796,-120.3945956],"radius":3.15})
+    CAG.circle({"center":[138.5237796,-120.3945956],"radius":3.2})
 ).union(
-    CAG.circle({"center":[214.9734605,-52.4953919],"radius":3.15})
+    CAG.circle({"center":[214.9734605,-52.4953919],"radius":3.2})
 ).union(
-    CAG.circle({"center":[162.9741646,-41.9875698],"radius":3.15})
+    CAG.circle({"center":[162.9741646,-41.9875698],"radius":3.2})
 ).union(
-    CAG.circle({"center":[93.2053218,-105.8165581],"radius":3.15})
+    CAG.circle({"center":[93.2053218,-105.8165581],"radius":3.2})
 ).union(
-    CAG.circle({"center":[81.3511489,-58.2720676],"radius":3.15})
+    CAG.circle({"center":[81.3511489,-58.2720676],"radius":3.2})
 ).extrude({ offset: [0, 0, 0.5] });
 }
 
