@@ -1,0 +1,178 @@
+# P19 P06 P21 P20 P02
+# P18 P05 P08 P03 P00
+# P15 P04 P07 P09 P01
+#             P16 P10
+
+units:
+  SS: 1.5 # screw size
+  FR: 3.2 # feet radius: 3.2mm
+  PH: 1.5 # plate height: 1.5mm
+  FI: 0.5 # feet indentation: 0.5mm
+
+points:
+  key.padding: cy
+  zones:
+    main:
+      anchor.shift: [150, -150]  # Fix placement on KiCAD sheet
+      anchor.rotate: 14
+      key.spread: cx
+      rows:
+        bottom:
+        home:
+        top:
+      columns:
+        pinky:
+          rows.bottom.column_net: P15
+          rows.home.column_net: P18
+          rows.top.column_net: P19
+          rows.bottom.bind: [0, 55, 0, 0]
+        ring:
+          key.splay: -8
+          key.stagger: cy * 0.66
+          key.spread: cx * 1.15
+          rows.bottom.column_net: P4
+          rows.home.column_net: P5
+          rows.top.column_net: P6
+          rows.top.bind: [1, 5, 0, 0]
+        middle:
+          key.splay: -2
+          key.stagger: cy * 0.4
+          key.spread: cx * 1.15
+          rows.bottom.column_net: P7
+          rows.home.column_net: P8
+          rows.top.column_net: P21
+          rows.bottom.bind: [5, 0, 5, 5]
+        index:
+          key.splay: -2
+          key.stagger: cy * -0.55
+          key.spread: cx * 1.15
+          rows.bottom.column_net: P9
+          rows.home.column_net: P3
+          rows.top.column_net: P20
+          rows.top.bind: [3, 1, 0, 5]
+        far:
+          key.splay: -3.5
+          key.stagger: cy * -0.35
+          key.spread: cx * 1.1
+          rows.bottom.column_net: P1
+          rows.home.column_net: P0
+          rows.top.column_net: P2
+          rows.top.bind: [0, 26, 50, 5] # u r d l
+    thumb:
+      anchor:
+        ref: main_far_bottom
+        shift: [cx * -0.5 , cy * -1.5]
+        rotate: -4
+      rows.single:
+      columns:
+        inner:
+          key.rotate: 5
+          rows.single.column_net: P16
+          rows.single.bind: [20, 15, 0, 0] # u r d l
+        home:
+          key.rotate: -15
+          key.shift: [cx * 0.6, 0]
+          rows.single.column_net: P10
+          rows.single.bind: [0, 0, 0, 20] # u r d l
+
+outlines:
+  raw:
+    - what: rectangle # main key outlines
+      where: true
+      size: [cx - 0.5, cy - 0.5]
+      bound: true
+  cutout:
+    - what: outline
+      name: raw
+      fillet: 2
+  keycap:
+    - where: true
+      what: rectangle
+      size: [cx - 0.5, cy - 0.5]
+      bound: false
+
+# mounting holes https://flatfootfox.com/ergogen-part4-footprints-cases/
+# npx @jscad/cli@1 output/cases/plate.jscad -of stla -o output/cases/plate.stl
+# for recessed feet on other half, use bambu labs mirror
+cases:
+  bottom:
+    - name: cutout
+      extrude: PH
+
+pcbs:
+  rergo:
+    outlines:
+      main.outline: cutout
+      keycaps:
+        outline: keycap
+        layer: Eco1.User
+    footprints:
+#      choc_hotswap:
+#        what: choc
+#        where: true
+#        params:
+#          from: "{{column_net}}"
+#          to: GND
+#          keycaps: true
+#          reverse: true
+#          hotswap: true
+      choc:
+        what: choc
+        where: true
+        adjust.rotate: 180
+        params:
+          from: "{{column_net}}"
+          to: GND
+          keycaps: true
+          reverse: true
+      nice_nano:
+        what: ceoloide/mcu_nice_nano
+        params.reversible: true
+        params.reverse_mount: true
+        where:
+          ref: main_far_home
+          shift: [21.5, 7.5]
+          rotate: 0
+      power:
+        what: ceoloide/power_switch_smd_side
+        params:
+          reversible: true
+          from: pos
+          to: RAW
+        where:
+          ref: main_far_bottom
+          shift: [32.5, -12.5]
+      reset:
+        what: rdc/reset_switch_b3u_1000p
+        params:
+          reversible: true
+        where:
+          ref: main_pinky_bottom
+          shift: [cx * 1.15, cy * -0.25]
+      bat:
+        what: ceoloide/battery_connector_jst_ph_2
+        where:
+          ref: main_far_bottom
+          shift: [cx * 1.5, cy * 0.2]
+        params:
+            reversible: true
+            BAT_P: pos
+      logo:
+        what: rdc/logo
+        params.reversible: true
+        params.scale: 1
+        where:
+          ref: main_middle_bottom
+          shift: [0, cy * -0.95]
+      name:
+        what: ceoloide/utility_text
+        params:
+          reversible: true
+          face: "SF Mono"
+          text: "rergo v3"
+          height: 2
+          width: 2
+          bold: true
+        where:
+          ref: thumb_inner_single
+          shift: [0, cy * 0.75]
