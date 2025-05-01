@@ -1,6 +1,16 @@
-# rergo v2
+# rergo v3.1
 
 Custom made keyboard using ergopad, ergogen and kicad
+
+# V3
+
+![PCB Design](/images/rergo-v3.1.png)
+
+[rergo v3 design](/designs/v3/)
+
+[rergo v3 kicad](/kicad/v3/)
+
+[rergo v3 zmk config](/zmk-config/v3/)
 
 # V2
 
