@@ -1,0 +1,243 @@
+meta:
+  version: v4.0.0
+  name: rergo
+  author: rdc
+
+units:
+  SS: 1.5 # screw size
+  FR: 3.2 # feet radius: 3.2mm
+  PH: 1.5 # plate height: 1.5mm
+  FI: 0.5 # feet indentation: 0.5mm
+
+points:
+  key.padding: cy
+  zones:
+    main:
+      anchor.shift: [150, -150]  # Fix placement on KiCAD sheet
+      anchor.rotate: 14
+      key.spread: cx
+      rows:
+        bottom.row_net: P8
+        home.row_net: P9
+        top.row_net: P2
+        numbers.row_net: P3
+      columns:
+        pinky:
+          key.col_net: P18
+          rows.bottom.bind: [2, 55, 0.5, 1.5] # u r d l
+          rows.home.bind: [2, 0, 0, 1.5] # u r d l
+          rows.top.bind: [2, 0, 0, 1.5] # u r d l
+          rows.numbers.bind: [0, 15, 0, 1.5] # u r d l
+        ring:
+          key.col_net: P19
+          key.splay: -8
+          key.stagger: cy * 0.66
+          key.spread: cx * 1.15
+          rows.numbers.bind: [0.5, 6, 0, 1.5] # u r d l
+        middle:
+          key.col_net: P5
+          key.splay: -2
+          key.stagger: cy * 0.4
+          key.spread: cx * 1.15
+          rows.bottom.bind: [5, 0, 5, 0] # u r d l
+          rows.numbers.bind: [0, 0.5, 0, 0] # u r d l
+        index:
+          key.col_net: P6
+          key.splay: -2
+          key.stagger: cy * -0.55
+          key.spread: cx * 1.15
+          rows.numbers.bind: [2.5, 1, 1, 5] # u r d l
+          rows.bottom.bind: [0, 0, 6, 10] # u r d l
+        far:
+          key.col_net: P7
+          key.splay: -3.5
+          key.stagger: cy * -0.35
+          key.spread: cx * 1.1
+          rows.numbers.bind: [0.5, 26, 67, 5] # u r d l
+    thumb:
+      anchor:
+        ref: main_far_bottom
+        shift: [cx * -0.5 , cy * -1.25]
+        rotate: -4
+      rows.single.row_net: P16
+      columns:
+        inner:
+          key.col_net: P15
+          key.rotate: 5
+          rows.single.bind: [20, 20, 5, 1.5] # u r d l
+        home:
+          key.col_net: P14
+          key.rotate: -10
+          key.shift: [cx * 0.35, cy * -0.05]
+          rows.single.bind: [9, 0, 0, 20] # u r d l
+        outer:
+          key.col_net: P10
+          key.rotate: -20
+          key.shift: [cx * 0.55, cy * -0.45]
+          rows.single.bind: [2, 1.5, 2, 20] # u r d l
+    screw_1:
+      key.tags:
+        - helper
+        - screws
+      anchor:
+        aggregate.parts:
+          - ref: main_pinky_numbers
+          - ref: main_pinky_top
+          - ref: main_ring_numbers
+          - ref: main_ring_top
+    screw_2:
+      key.tags:
+        - helper
+        - screws
+      anchor:
+        aggregate.parts:
+          - ref: main_middle_bottom
+        shift: [0, -15]
+    screw_3:
+      key.tags:
+        - helper
+        - screws
+      anchor:
+        aggregate.parts:
+          - ref: main_index_numbers
+          - ref: main_far_numbers
+        shift: [1, 0]
+    screw_4:
+      key.tags:
+        - helper
+        - screws
+      anchor:
+        aggregate.parts:
+          - ref: thumb_home_single
+          - ref: main_far_bottom
+        shift: [10, 5]
+outlines:
+  raw:
+    - what: rectangle # main key outlines
+      where:
+        - /main/
+        - /thumb/
+      size: [cx - 0.5, cy - 0.5]
+      bound: true
+  cutout:
+    - what: outline
+      name: raw
+      fillet: 2
+  keycap:
+    - where:
+        - /main/
+        - /thumb/
+      what: rectangle
+      size: [cx - 0.5, cy - 0.5]
+      bound: false
+  screw_heads:
+    - what: circle
+      where:
+        - screws
+      radius: 4.3/2
+  preview:
+    - what: outline
+      name: cutout
+      operation: stack
+    - what: outline
+      name: keycap
+      operation: stack
+    - what: outline
+      name: screw_heads
+      operation: stack
+pcbs:
+  rergo:
+    template: kicad8
+    outlines:
+      main.outline: cutout
+      keycaps:
+        outline: keycap
+        layer: Eco1.User
+    footprints:
+      choc_hotswap:
+        what: ceoloide/switch_choc_v1_v2
+        where:
+          - /main/
+          - /thumb/
+        adjust:
+          rotate: 180
+        params:
+          from: "{{col_net}}"
+          to: "{{colrow}}"
+          choc_v1_support: false
+          include_plated_holes: false
+          hotswap: true
+          reversible: true
+          include_stabilizer_pad: false
+      diode:
+        what: ceoloide/diode_tht_sod123
+        where:
+          - /main/
+          - /thumb/
+        adjust:
+          shift: [5.8, 0]
+          rotate: 180
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+          reversible: true
+          include_traces_vias: true
+      nice_nano:
+        what: ceoloide/mcu_nice_nano
+        params.reversible: true
+        params.reverse_mount: true
+        where:
+          ref: main_far_home
+          shift: [21.5, 24.5]
+          rotate: 0
+      power:
+        what: ceoloide/power_switch_smd_side
+        params:
+          reversible: true
+          from: pos
+          to: RAW
+        where:
+          ref: main_far_bottom
+          shift: [32.0, 15]
+      reset:
+        what: rdc/reset_switch_b3u_1000p
+        params:
+          reversible: true
+        where:
+          ref: main_far_bottom
+          shift: [32.5, 0]
+          rotate: -90
+      bat:
+        what: ceoloide/battery_connector_jst_ph_2
+        where:
+          ref: main_far_bottom
+          shift: [14.5, 17.5]
+          rotate: 90
+        params:
+            reversible: true
+            BAT_P: pos
+      m2_screws:
+        what: ceoloide/mounting_hole_npth
+        where: /screws/
+        params:
+          hole_size: 4.6
+          hole_drill: 2.2
+      name:
+        what: ceoloide/utility_text
+        params:
+          reversible: true
+          face: "SF Mono"
+          text: "rergo v4"
+          height: 2
+          width: 2
+          bold: true
+        where:
+          ref: main_pinky_bottom
+          shift: [25, -6]
+      logo:
+        what: rdc/logo
+        params.reversible: true
+        params.scale: 1
+        where:
+          ref: main_far_bottom
+          shift: [20, 5]
