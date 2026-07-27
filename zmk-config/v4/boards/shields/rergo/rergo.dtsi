@@ -1,0 +1,7 @@
+#include "rergo-layouts.dtsi"
+
+/ {
+    chosen {
+        zmk,physical-layout = &physical_layout_rergo;
+    };
+};

@@ -1,3 +1,4 @@
 output*/*
 kicad/*/*-backups/
 .DS_Store
+kicad/*/.history*

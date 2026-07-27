@@ -199,6 +199,7 @@ cases:
   _power:
     - name: power
       extrude: PH * 3.5
+      shift: [3.5, 0, 1.5]
   _feet:
     - name: feet
       extrude: PH / 2

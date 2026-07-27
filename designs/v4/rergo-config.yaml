@@ -1,13 +1,16 @@
 meta:
-  version: v4.0.0
+  version: v4.0.3
   name: rergo
   author: rdc
 
 units:
   SS: 1.5 # screw size
-  FR: 3.2 # feet radius: 3.2mm
-  PH: 1.5 # plate height: 1.5mm
+  FR: 3.9 # feet radius: 3.2mm / 3.8mm for new feet
+  CH: 1.5 # case height: 1.5mm
+  PH: 1.0 # plate height: 1.0mm
   FI: 0.5 # feet indentation: 0.5mm
+  SR: 4.6/2 # screw head radius: 4.6/2 = 2.15mm
+  SH: 2.2/2 # screw hole radius: 2.2/2 = 1.1mm
 
 points:
   key.padding: cy
@@ -112,46 +115,328 @@ points:
           - ref: main_far_bottom
         shift: [10, 5]
 outlines:
-  raw:
+  _raw:
     - what: rectangle # main key outlines
-      where:
-        - /main/
-        - /thumb/
       size: [cx - 0.5, cy - 0.5]
       bound: true
-  cutout:
-    - what: outline
-      name: raw
-      fillet: 2
-  keycap:
-    - where:
+      where:
         - /main/
         - /thumb/
-      what: rectangle
+  cutout:
+    - what: outline
+      name: _raw
+      fillet: 2
+  keycaps:
+    - what: rectangle
       size: [cx - 0.5, cy - 0.5]
       bound: false
-  screw_heads:
-    - what: circle
       where:
-        - screws
-      radius: 4.3/2
+        - /main/
+        - /thumb/
+  key_switch_cutout:
+    - what: rectangle
+      size: [14, 14]
+      bound: false
+      where:
+        - /main/
+        - /thumb/
+  power_switch:
+    - what: rectangle
+      size: [4, 6.5]
+      where:
+        ref: main_far_bottom
+        shift: [32.0, 15]
+  nicenano_v2:
+    - what: rectangle
+      size: [18, 33]
+      where:
+        ref: main_far_home
+        shift: [21.5, 24.5]
+    - what: rectangle
+      size: [9, 2]
+      where:
+        ref: main_far_home
+        shift: [21.5, 42]
+  jstph:
+    - what: rectangle
+      size: [7.6, 6]
+      where:
+        ref: main_far_bottom
+        shift: [16.5, 17.5]
+  reset_switch:
+    - what: rectangle
+      size: [3, 2.5]
+      where:
+        ref: main_far_bottom
+        shift: [32.5, 0]
+        rotate: -90
+  _screw_heads:
+    - what: circle
+      where: screws
+      radius: SR
+  _screw_holes:
+    - what: circle
+      where: screws
+      radius: SH
+  _inner_wall:
+    - what: outline
+      name: _raw
+      expand: 0.25
+      fillet: 2
+  _outer_wall:
+    - what: outline
+      name: _raw
+      expand: 2.25
+  feet:
+    - what: circle
+      radius: FR
+      where: main_pinky_numbers
+      adjust:
+        shift: [cx * -0.25, cy * 0.25]
+    - what: circle
+      radius: FR
+      where: main_pinky_bottom
+      adjust:
+        shift: [cx * -0.25, cy * -0.25]
+    - what: circle
+      radius: FR
+      where: main_middle_numbers
+      adjust:
+        shift: [cx * 0.25, cy * 0.25]
+    - what: circle
+      radius: FR
+      where: main_far_top
+      adjust:
+        shift: [cx * 1.70, cy * 1.25]
+    - what: circle
+      radius: FR
+      where: thumb_inner_single
+      adjust:
+        shift: [cx * -0.25, cy * -0.5]
+    - what: circle
+      radius: FR
+      where: thumb_outer_single
+      adjust:
+        shift: [0, 0]
+  _tent_raw:
+    - what: rectangle
+      size: [43, 14.5]
+      where: main_far_bottom
+      fillet: 2
+      adjust:
+        shift: [10, 0]
+    - what: rectangle
+      size: [43, 14.5]
+      where: main_far_top
+      fillet: 2
+      adjust:
+        shift: [10, 10]
+  tent:
+    - what: circle
+      radius: FR
+      where: main_pinky_numbers
+      adjust:
+        shift: [cx * -0.25, cy * 0.25]
+    - what: circle
+      radius: FR
+      where: main_pinky_bottom
+      adjust:
+        shift: [cx * -0.25, cy * -0.25]
+    - what: outline
+      name: _tent_raw
+  lip:
+    - what: rectangle
+      size: [6.5, 2]
+      where:
+        ref: main_middle_numbers
+        shift: [0, cy * 0.5]
+    - what: rectangle
+      size: [6.5, 2]
+      where:
+        ref: main_pinky_numbers
+        shift: [0, cy * 0.5]
+    - what: rectangle
+      size: [6.5, 2]
+      where:
+        ref: main_far_numbers
+        shift: [0, cy * 0.5]
+  _components_cutout:
+    - what: rectangle
+      size: [20, 45.5]
+      where:
+        ref: main_far_home
+        shift: [21.5, 17.5]
+    - what: outline
+      name: power_switch
+      expand: 0.75
+      #where:
+      #  shift: [2.5, 0]
+    - what: outline
+      name: reset_switch
+      expand: 0.75
+  case:
+    - what: outline
+      name: _inner_wall
+      operation: stack
+    - what: outline
+      name: _outer_wall
+      operation: stack
   preview:
     - what: outline
       name: cutout
       operation: stack
     - what: outline
-      name: keycap
+      name: keycaps
       operation: stack
     - what: outline
-      name: screw_heads
+      name: _screw_heads
       operation: stack
+    - what: outline
+      name: power_switch
+      operation: stack
+    - what: outline
+      name: nicenano_v2
+      operation: stack
+    - what: outline
+      name: reset_switch
+      operation: stack
+    - what: outline
+      name: jstph
+      operation: stack
+  case_preview:
+    - what: outline
+      name: cutout
+      operation: stack
+    - what: outline
+      name: _inner_wall
+      operation: stack
+    - what: outline
+      name: _outer_wall
+      operation: stack
+    - what: outline
+      name: feet
+      operation: stack
+    - what: outline
+      name: lip
+      operation: stack
+  tent_case_preview:
+    - what: outline
+      name: cutout
+      operation: stack
+    - what: outline
+      name: _inner_wall
+      operation: stack
+    - what: outline
+      name: _outer_wall
+      operation: stack
+    - what: outline
+      name: tent
+      operation: stack
+    - what: outline
+      name: lip
+      operation: stack
+  plate_preview:
+    - what: outline
+      name: cutout
+      operation: stack
+    - what: outline
+      name: key_switch_cutout
+      operation: stack
+    #- what: outline
+    #  name: _screw_heads
+    #  operation: stack
+    - what: outline
+      name: _components_cutout
+      operation: stack
+cases:
+  _bottom:
+    - name: _inner_wall
+      extrude: CH
+  _full_wall:
+    - name: case
+      extrude: CH * 3.5
+  _power_switch_cutout:
+    - name: power_switch
+      extrude: CH * 3.5
+      shift: [3.5, 0, CH]
+  _feet:
+    - name: feet
+      extrude: CH / 2
+  _tent:
+    - name: tent
+      extrude: CH / 2
+  _lip:
+    - name: lip
+      extrude: 0.5
+      shift: [0, 0, CH * 3]
+  _bottom_feet_case:
+    - what: case
+      name: _bottom
+      operation: add
+    - what: case
+      name: _feet
+      operation: subtract
+  _bottom_tent_case:
+    - what: case
+      name: _bottom
+      operation: add
+    - what: case
+      name: _tent
+      operation: subtract
+  _wall:
+    - what: case
+      name: _full_wall
+      operation: add
+    - what: case
+      name: _power_switch_cutout
+      operation: subtract
+  bottom_case:
+    - what: case
+      name: _bottom_feet_case
+    - what: case
+      name: _wall
+    - what: case
+      name: _lip
+  tent_case:
+    - what: case
+      name: _bottom_tent_case
+    - what: case
+      name: _wall
+    - what: case
+      name: _lip
+  _sunk_screw_heads:
+    - what: outline
+      name: _screw_holes
+      extrude: PH - 0.25
+      operation: add
+    - what: outline
+      name: _screw_heads
+      extrude: 0.25
+      operation: add
+      shift: [0, 0, PH - 0.25]
+  plate:
+    - what: outline
+      name: cutout
+      extrude: PH
+      operation: add
+    - what: outline
+      name: key_switch_cutout
+      extrude: PH
+      operation: subtract
+    #- what: case
+    #  name: _sunk_screw_heads
+    #  operation: subtract
+    - what: outline
+      name: _components_cutout
+      extrude: PH
+      operation: subtract
 pcbs:
   rergo:
     template: kicad8
     outlines:
       main.outline: cutout
       keycaps:
-        outline: keycap
+        outline: keycaps
         layer: Eco1.User
     footprints:
       choc_hotswap:
@@ -168,7 +453,8 @@ pcbs:
           include_plated_holes: false
           hotswap: true
           reversible: true
-          include_stabilizer_pad: false
+          include_stabilizer_pad: true
+          include_corner_marks: true
       diode:
         what: ceoloide/diode_tht_sod123
         where:
