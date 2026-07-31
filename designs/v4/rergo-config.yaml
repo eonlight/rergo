@@ -1,13 +1,14 @@
 meta:
-  version: v4.0.3
+  version: v4.0.5
   name: rergo
   author: rdc
 
 units:
   SS: 1.5 # screw size
-  FR: 3.9 # feet radius: 3.2mm / 3.8mm for new feet
+  FR: 4.1 # feet radius: 3.2mm / 3.8mm for new feet
   CH: 1.5 # case height: 1.5mm
-  PH: 1.0 # plate height: 1.0mm
+  PH: 1.5 # plate height: 1.5mm
+  WH: CH*4.75 # wall height: 7.125mm
   FI: 0.5 # feet indentation: 0.5mm
   SR: 4.6/2 # screw head radius: 4.6/2 = 2.15mm
   SH: 2.2/2 # screw hole radius: 2.2/2 = 1.1mm
@@ -220,17 +221,17 @@ outlines:
         shift: [0, 0]
   _tent_raw:
     - what: rectangle
-      size: [43, 14.5]
+      size: [56, 14.5] # actual size: 55.5 x 14.0
       where: main_far_bottom
       fillet: 2
       adjust:
-        shift: [10, 0]
+        shift: [7, -2]
     - what: rectangle
-      size: [43, 14.5]
+      size: [56, 14.5]
       where: main_far_top
       fillet: 2
       adjust:
-        shift: [10, 10]
+        shift: [7, 10]
   tent:
     - what: circle
       radius: FR
@@ -262,10 +263,10 @@ outlines:
         shift: [0, cy * 0.5]
   _components_cutout:
     - what: rectangle
-      size: [20, 45.5]
+      size: [22, 59.75]
       where:
         ref: main_far_home
-        shift: [21.5, 17.5]
+        shift: [23.5, 12.15]
     - what: outline
       name: power_switch
       expand: 0.75
@@ -348,16 +349,51 @@ outlines:
     - what: outline
       name: _components_cutout
       operation: stack
+  _plate_tester_cutout:
+    - what: rectangle
+      size: [95, 115]
+      where:
+        ref: main_index_home
+        shift: [-35, -5]
+  plate_tester_preview:
+    - what: outline
+      name: plate_preview
+    - what: outline
+      name: _plate_tester_cutout
+  _tent_tester_cutout:
+    - what: rectangle
+      size: [95, 120]
+      where:
+        ref: main_index_home
+        shift: [-47, -5]
+    - what: rectangle
+      size: [130, 60]
+      where:
+        ref: main_far_bottom
+        shift: [0, -20]
+  _tent_foot_tester:
+    - what: circle
+      radius: FR
+      where: main_far_home
+      adjust:
+        shift: [25, 10]
+  tent_tester_preview:
+    - what: outline
+      name: tent_case_preview
+    - what: outline
+      name: _tent_tester_cutout
+    - what: outline
+      name: _tent_foot_tester
 cases:
   _bottom:
     - name: _inner_wall
       extrude: CH
   _full_wall:
     - name: case
-      extrude: CH * 3.5
+      extrude: WH
   _power_switch_cutout:
     - name: power_switch
-      extrude: CH * 3.5
+      extrude: WH
       shift: [3.5, 0, CH]
   _feet:
     - name: feet
@@ -368,7 +404,7 @@ cases:
   _lip:
     - name: lip
       extrude: 0.5
-      shift: [0, 0, CH * 3]
+      shift: [0, 0,WH - 0.5]
   _bottom_feet_case:
     - what: case
       name: _bottom
@@ -430,6 +466,25 @@ cases:
       name: _components_cutout
       extrude: PH
       operation: subtract
+  plate_tester:
+    - what: case
+      name: plate
+      operation: add
+    - what: outline
+      name: _plate_tester_cutout
+      operation: subtract
+      extrude: PH*5
+  tent_tester:
+    - what: case
+      name: tent_case
+      operation: add
+    - what: outline
+      name: _tent_foot_tester
+      operation: subtract
+    - what: outline
+      name: _tent_tester_cutout
+      operation: subtract
+      extrude: PH*5
 pcbs:
   rergo:
     template: kicad8

@@ -71,8 +71,24 @@ Order of operations:
 Multimeter checks (power off):
 * Use **diode mode** (not plain continuity) when a diode is in the path — `col2row` means it conducts col → row only. Red on the col pad, black on the row pad → ~0.5–0.7 V when pressed, open when released; reversed probes stay open (confirms diode direction).
 * Plain continuity: switch pad ↔ its nice_nano pin pad (catches cold joints); adjacent col/row pins should **not** be connected when idle (catches bridges).
+* **Use the pads on the other side of the soldered components to test things (diode/socket)**
+* shorting the pads on the other side should produce a key
+* **THE LIKELY PROBLEM IS THE DIODE!!!!**
 
 Deeper firmware debugging: add `CONFIG_ZMK_USB_LOGGING=y` to `config/rergo.conf`, rebuild, and open the USB serial port to see raw key press/release events with position numbers (turn it off for daily use — it raises power draw).
+
+#### Chatter (one press prints multiple characters)
+
+**Check the hotswap socket joints first — that was the cause on v4.** A socket that looks soldered but isn't fully wetted makes intermittent contact, which the firmware reads as release + re-press. Reflowing the socket fixed it. Other hardware suspects: cold joint on that key's diode, or debris/wear in the switch.
+
+To tell hardware from timing: move the switch to another socket. If the chatter follows the switch it's the switch; if it stays with the position it's the board (socket or diode joint).
+
+Debounce tuning masks bounce but does not fix a bad joint — only reach for it once the joints are known good, or if chatter is spread evenly across many keys. The `kscan` node's defaults are 5 ms press / 5 ms release; raising **release** targets repeats without adding keystroke latency (v4 uses `debounce-release-ms = <15>`). To experiment without touching the devicetree, put `CONFIG_ZMK_KSCAN_DEBOUNCE_RELEASE_MS=25` in `config/rergo.conf` — it overrides all kscan instances. Above ~30 ms rapid double-taps start getting swallowed.
+
+#### Firmware gotchas hit during v4 bring-up
+
+* **No key on either half registers, but the board flashes, boots and pairs fine** → the shield is missing `chosen { zmk,kscan = &kscan0; };`. Defining the matrix node is not enough; without the `chosen` entry ZMK builds cleanly with no key scanner at all and warns about nothing.
+* Every keymap layer must have **exactly one binding per key position** (46 on v4). A miscount produces only an "excess elements in array initializer" warning at build time, but silently shifts every following key on that layer.
 
 ### KiCad Notes
 
